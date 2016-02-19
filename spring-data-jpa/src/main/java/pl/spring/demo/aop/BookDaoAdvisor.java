@@ -1,35 +1,32 @@
 package pl.spring.demo.aop;
 
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.stereotype.Component;
 
-import org.springframework.aop.MethodBeforeAdvice;
-import pl.spring.demo.annotation.NullableId;
 import pl.spring.demo.exception.BookNotNullIdException;
 import pl.spring.demo.to.IdAware;
 
-import java.lang.reflect.Method;
+@Component
+@Aspect
+public class BookDaoAdvisor {
 
-public class BookDaoAdvisor implements MethodBeforeAdvice {
+	@Pointcut("@annotation(pl.spring.demo.annotation.NullableId)")
+	public void pointCutForNullableId() {
+		System.out.println("Hello");
+	};
 
-    @Override
-    public void before(Method method, Object[] objects, Object o) throws Throwable {
+	@Before("pointCutForNullableId()")
+	public void beforeNullableId(JoinPoint joinPoint) {
+		checkNotNullId(joinPoint.getArgs()[0]);
+	}
 
-        if (hasAnnotation(method, o, NullableId.class)) {
-            checkNotNullId(objects[0]);
-        }
-    }
+	private void checkNotNullId(Object o) {
+		if (o instanceof IdAware && ((IdAware) o).getId() != null) {
+			throw new BookNotNullIdException();
+		}
+	}
 
-    private void checkNotNullId(Object o) {
-        if (o instanceof IdAware && ((IdAware) o).getId() != null) {
-            throw new BookNotNullIdException();
-        }
-    }
-
-    private boolean hasAnnotation (Method method, Object o, Class annotationClazz) throws NoSuchMethodException {
-        boolean hasAnnotation = method.getAnnotation(annotationClazz) != null;
-
-        if (!hasAnnotation && o != null) {
-            hasAnnotation = o.getClass().getMethod(method.getName(), method.getParameterTypes()).getAnnotation(annotationClazz) != null;
-        }
-        return hasAnnotation;
-    }
 }
