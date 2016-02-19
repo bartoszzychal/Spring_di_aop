@@ -1,15 +1,15 @@
-package pl.spring.demo.to;
+package pl.spring.demo.entity;
 
-public class AuthorTo {
+public class AuthorEntity {
 	
 	private Long id;
 	private String firstName;
 	private String lastName;
 	
-	public AuthorTo() {
+	public AuthorEntity() {
 	}
 
-	public AuthorTo(Long id, String firstName, String lastName) {
+	public AuthorEntity(Long id, String firstName, String lastName) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
