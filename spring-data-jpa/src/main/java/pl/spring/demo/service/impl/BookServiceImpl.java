@@ -1,5 +1,8 @@
 package pl.spring.demo.service.impl;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -9,11 +12,6 @@ import pl.spring.demo.dao.BookDao;
 import pl.spring.demo.entity.BookEntity;
 import pl.spring.demo.service.BookService;
 import pl.spring.demo.to.BookTo;
-
-import java.util.List;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -55,6 +53,5 @@ public class BookServiceImpl implements BookService {
 	public void setBookMapper(BookMapper bookMapper) {
 		this.bookMapper = bookMapper;
 	}
-    
     
 }
