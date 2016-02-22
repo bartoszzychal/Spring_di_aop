@@ -40,7 +40,6 @@ public class BookServiceImplTest {
     }
 
     @Test
-    @Ignore
     public void testShouldFindAllBooksByTitle() {
         // given
         final String title = "Opium w rosole";
@@ -49,12 +48,63 @@ public class BookServiceImplTest {
         // then
         assertNotNull(booksByTitle);
         assertFalse(booksByTitle.isEmpty());
+       assertEquals(title, booksByTitle.get(0).getTitle());
+    }
+    @Test
+    
+    public void testShouldFindAllBooksByTitlePrefix() {
+    	// given
+    	final String title_prefix = "Opium";
+    	// when
+    	List<BookTo> booksByTitle = bookService.findBooksByTitle(title_prefix);
+    	// then
+    	assertNotNull(booksByTitle);
+    	assertFalse(booksByTitle.isEmpty());
+    	assertTrue(booksByTitle.get(0).getTitle().startsWith(title_prefix));
+    }
+    
+    @Test
+    public void testShouldFindAllBooksByAuthor() {
+    	// given
+    	final String author = "Wiliam Szekspir";
+    	// when
+    	List<BookTo> booksByAuthor = bookService.findBooksByAuthor(author);
+    	// then
+    	assertNotNull(booksByAuthor);
+    	assertFalse(booksByAuthor.isEmpty());
+    	assertEquals(author, booksByAuthor.get(0).getAuthors().substring(0, author.length()));
+    }
+    
+    @Test
+    public void testShouldFindAllBooksByAuthorPrefix() {
+    	// given
+    	final String author = "Wiliam";
+    	// when
+    	List<BookTo> booksByAuthor = bookService.findBooksByAuthor(author);
+    	// then
+    	assertNotNull(booksByAuthor);
+    	assertFalse(booksByAuthor.isEmpty());
+    	assertEquals(author, booksByAuthor.get(0).getAuthors().substring(0, author.length()));
+    }
+
+    @Test
+    public void testShouldFindAllBooksByAuthorFirstNameAndLastNamePrefix() {
+    	// given
+    	final String author = "Wiliam S";
+    	// when
+    	List<BookTo> booksByAuthor = bookService.findBooksByAuthor(author);
+    	// then
+    	assertNotNull(booksByAuthor);
+    	assertFalse(booksByAuthor.isEmpty());
+    	assertEquals(author, booksByAuthor.get(0).getAuthors().substring(0, author.length()));
     }
 
     @Test(expected = BookNotNullIdException.class)
     public void testShouldThrowBookNotNullIdException() {
         // given
         final BookTo bookToSave = new BookTo();
+        bookToSave.setAuthors("first last");
+        bookToSave.setTitle("title");
         bookToSave.setId(22L);
         // when
         bookService.saveBook(bookToSave);
