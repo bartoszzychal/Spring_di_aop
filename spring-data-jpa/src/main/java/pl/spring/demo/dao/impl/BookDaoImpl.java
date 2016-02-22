@@ -13,10 +13,11 @@ import pl.spring.demo.annotation.NullableId;
 import pl.spring.demo.dao.BookDao;
 import pl.spring.demo.entity.AuthorEntity;
 import pl.spring.demo.entity.BookEntity;
+import pl.spring.demo.separators.Separators;
 
 @Component
 public class BookDaoImpl implements BookDao {
-
+	
 	private final Set<BookEntity> ALL_BOOKS = new HashSet<>();
 
 	public BookDaoImpl() {
@@ -47,7 +48,7 @@ public class BookDaoImpl implements BookDao {
 					.anyMatch((authorEntity)->
 						new StringBuilder()
 						.append(authorEntity.getFirstName())
-						.append(" ")
+						.append(Separators.SPACE)
 						.append(authorEntity.getLastName())
 						.toString()
 						.toLowerCase()
