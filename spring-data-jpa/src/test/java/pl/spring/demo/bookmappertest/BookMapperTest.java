@@ -1,4 +1,4 @@
-package pl.spring.demo.bookmapper;
+package pl.spring.demo.bookmappertest;
 
 import static org.junit.Assert.assertEquals;
 
@@ -14,7 +14,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import pl.spring.demo.authormapper.AuthorsMapper;
+import pl.spring.demo.authorsmapper.AuthorsMapper;
+import pl.spring.demo.bookmapper.BookMapper;
 import pl.spring.demo.entity.AuthorEntity;
 import pl.spring.demo.entity.BookEntity;
 import pl.spring.demo.to.BookTo;

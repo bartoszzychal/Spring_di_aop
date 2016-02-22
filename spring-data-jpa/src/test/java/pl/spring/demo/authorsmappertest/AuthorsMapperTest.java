@@ -1,4 +1,4 @@
-package pl.spring.demo.authorsmapper;
+package pl.spring.demo.authorsmappertest;
 
 import static org.junit.Assert.*;
 
@@ -10,7 +10,7 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 
-import pl.spring.demo.authormapper.AuthorsMapper;
+import pl.spring.demo.authorsmapper.AuthorsMapper;
 import pl.spring.demo.entity.AuthorEntity;
 
 public class AuthorsMapperTest {

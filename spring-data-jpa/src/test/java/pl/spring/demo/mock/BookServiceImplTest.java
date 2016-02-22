@@ -12,7 +12,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import pl.spring.demo.authormapper.AuthorsMapper;
+import pl.spring.demo.authorsmapper.AuthorsMapper;
 import pl.spring.demo.bookmapper.BookMapper;
 import pl.spring.demo.dao.BookDao;
 import pl.spring.demo.entity.AuthorEntity;

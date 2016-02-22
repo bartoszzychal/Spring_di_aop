@@ -3,7 +3,7 @@ package pl.spring.demo.bookmapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import pl.spring.demo.authormapper.AuthorsMapper;
+import pl.spring.demo.authorsmapper.AuthorsMapper;
 import pl.spring.demo.entity.BookEntity;
 import pl.spring.demo.to.BookTo;
 

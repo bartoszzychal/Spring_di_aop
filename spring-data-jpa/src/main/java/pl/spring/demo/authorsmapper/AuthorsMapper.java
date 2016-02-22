@@ -1,4 +1,4 @@
-package pl.spring.demo.authormapper;
+package pl.spring.demo.authorsmapper;
 
 import java.util.Arrays;
 import java.util.List;
