@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.function.ToDoubleBiFunction;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
@@ -33,7 +32,10 @@ public class BookDaoImpl implements BookDao {
 	public List<BookEntity> findBookByTitle(String title) {
 		return	ALL_BOOKS
 				.stream()
-				.filter((bookEntity)->bookEntity.getTitle().toLowerCase() == title.toLowerCase())
+				.filter((bookEntity)->bookEntity
+						.getTitle()
+						.toLowerCase()
+						.startsWith(title.toLowerCase()))
         		.collect(Collectors.toList());
 	}
 
@@ -41,10 +43,15 @@ public class BookDaoImpl implements BookDao {
 	public List<BookEntity> findBooksByAuthor(String author) {
 		return ALL_BOOKS
 				.stream()
-				.filter((bookEntity)->bookEntity
-					.getAuthors()
-					.stream()
-					.anyMatch((authorTo)->author.contains(authorTo.getFirstName())&&author.contains(authorTo.getLastName())))
+				.filter((bookEntity)->bookEntity.getAuthors().stream()
+					.anyMatch((authorEntity)->
+						new StringBuilder()
+						.append(authorEntity.getFirstName())
+						.append(" ")
+						.append(authorEntity.getLastName())
+						.toString()
+						.toLowerCase()
+						.startsWith(author.toLowerCase())))
         		.collect(Collectors.toList());
 	}
 
