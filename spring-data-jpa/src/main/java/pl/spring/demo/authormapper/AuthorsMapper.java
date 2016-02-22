@@ -7,18 +7,16 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import pl.spring.demo.entity.AuthorEntity;
+import pl.spring.demo.separators.Separators;
 
 @Service
 public class AuthorsMapper {
 	
-	private final String REGEX_SPACE_SEPARATOR = " ";
-	private final String REGEX_COMMA_SEPARATOR = ",";
-	
 	public List<AuthorEntity> stringToListOfAuthorEntity(String authors) {
-		return Arrays.asList(authors.split(REGEX_COMMA_SEPARATOR))
+		return Arrays.asList(authors.split(Separators.COMMA))
 				.stream()
 				.map((author) -> {
-					List<String> firstAndLastname = Arrays.asList(author.trim().split(REGEX_SPACE_SEPARATOR,2));
+					List<String> firstAndLastname = Arrays.asList(author.trim().split(Separators.SPACE,2));
 					return new AuthorEntity(1L, firstAndLastname.get(0), firstAndLastname.get(1));
 				}).collect(Collectors.toList());
 	}
@@ -28,13 +26,13 @@ public class AuthorsMapper {
 			.stream()
 			.map(author-> new StringBuilder()
 					.append(author.getFirstName())
-					.append(REGEX_SPACE_SEPARATOR)
+					.append(Separators.SPACE)
 					.append(author.getLastName())
 					.toString())
 			.reduce((author1,author2)-> new StringBuilder()
 					.append(author1)
-					.append(REGEX_COMMA_SEPARATOR)
-					.append(REGEX_SPACE_SEPARATOR)
+					.append(Separators.COMMA)
+					.append(Separators.SPACE)
 					.append(author2)
 					.toString())
 			.get();
