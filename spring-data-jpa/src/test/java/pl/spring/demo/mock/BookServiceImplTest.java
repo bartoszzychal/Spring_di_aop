@@ -3,6 +3,7 @@ package pl.spring.demo.mock;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -11,6 +12,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import pl.spring.demo.authormapper.AuthorsMapper;
+import pl.spring.demo.bookmapper.BookMapper;
 import pl.spring.demo.dao.BookDao;
 import pl.spring.demo.entity.AuthorEntity;
 import pl.spring.demo.entity.BookEntity;
@@ -19,26 +22,43 @@ import pl.spring.demo.to.BookTo;
 
 public class BookServiceImplTest {
 
-    @InjectMocks
-    private BookServiceImpl bookService;
-    @Mock
-    private BookDao bookDao;
+	@InjectMocks
+	private BookServiceImpl bookService;
+	@Mock
+	private BookDao bookDao;
+	@Mock
+	private BookMapper bookMapper;
+	@Mock
+	private AuthorsMapper authorsMapper;
 
-    @Before
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
-    }
+	@Before
+	public void setUp() {
+		MockitoAnnotations.initMocks(this);
+	}
 
-    @Test
-    public void testShouldSaveBook() {
-        // given
-        BookTo book = new BookTo(null, "title", "author");
-        BookEntity bookEntity = new BookEntity(null, "title", Arrays.asList(new AuthorEntity(1L,"author","")));
-        Mockito.when(bookDao.save(bookEntity)).thenReturn(new BookEntity(1L, "title", Arrays.asList(new AuthorEntity(1L,"author",""))));
-        // when
-        BookTo result = bookService.saveBook(book);
-        // then
-        Mockito.verify(bookDao).save(bookEntity);
-        assertEquals(1L, result.getId().longValue());
-    }
+	@Test
+	public void testShouldSaveBook() {
+		// given
+		String authors = "first last";
+		List<AuthorEntity> authorsList = Arrays.asList(new AuthorEntity(1L, "first", "last"));
+		String title = "title";
+
+		BookTo bookTo = new BookTo(null, title, authors);
+		BookEntity bookEntity = new BookEntity(null, title, authorsList);
+
+		BookTo bookToExpected = new BookTo(1L, title, authors);
+		BookEntity bookEntityExpected = new BookEntity(1L, title, authorsList);
+		
+		Mockito.when(bookMapper.bookToToBookEntity(bookTo)).thenReturn(bookEntity);
+		Mockito.when(bookDao.save(bookEntity)).thenReturn(bookEntityExpected);
+		Mockito.when(bookMapper.bookEntityToBookTo(bookEntityExpected)).thenReturn(bookToExpected);
+		// when
+		BookTo result = bookService.saveBook(bookTo);
+		// then
+		Mockito.verify(bookDao).save(bookEntity);
+		Mockito.verify(bookMapper).bookToToBookEntity(bookTo);
+		Mockito.verify(bookMapper).bookEntityToBookTo(bookEntityExpected);
+		
+		assertEquals(1L, result.getId().longValue());
+	}
 }
