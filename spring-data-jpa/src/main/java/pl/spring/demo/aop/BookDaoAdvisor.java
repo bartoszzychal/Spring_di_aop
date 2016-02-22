@@ -39,7 +39,7 @@ public class BookDaoAdvisor {
 		}
 	}
 	
-	@Pointcut("execution(public * pl.spring.demo.dao.BookDao.save(pl.spring.demo.to.BookTo))")
+	@Pointcut("execution(public * pl.spring.demo.dao.BookDao.save(pl.spring.demo.entity.BookEntity))")
 	public void setIdForSaveBook(){
 	}
 	
