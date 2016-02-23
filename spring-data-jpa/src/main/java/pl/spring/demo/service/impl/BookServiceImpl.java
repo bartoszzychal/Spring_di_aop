@@ -25,17 +25,26 @@ public class BookServiceImpl implements BookService {
     @Override
     @Cacheable("booksCache")
     public List<BookTo> findAllBooks() {
-        return bookDao.findAll().stream().map((bookEntity)->bookMapper.bookEntityToBookTo(bookEntity)).collect(Collectors.toList());
+        return bookDao.findAll()
+        		.stream()
+        		.map((bookEntity)->bookMapper.bookEntityToBookTo(bookEntity))
+        		.collect(Collectors.toList());
     }
 
     @Override
     public List<BookTo> findBooksByTitle(String title) {
-        return bookDao.findBookByTitle(title).stream().map((bookEntity)->bookMapper.bookEntityToBookTo(bookEntity)).collect(Collectors.toList());
+        return bookDao.findBookByTitle(title)
+        		.stream()
+        		.map((bookEntity)->bookMapper.bookEntityToBookTo(bookEntity))
+        		.collect(Collectors.toList());
     }
 
     @Override
     public List<BookTo> findBooksByAuthor(String author) {
-        return bookDao.findBooksByAuthor(author).stream().map((bookEntity)->bookMapper.bookEntityToBookTo(bookEntity)).collect(Collectors.toList());
+        return bookDao.findBooksByAuthor(author)
+        		.stream()
+        		.map((bookEntity)->bookMapper.bookEntityToBookTo(bookEntity)).
+        		collect(Collectors.toList());
         		
     }
 
@@ -46,12 +55,4 @@ public class BookServiceImpl implements BookService {
         return bookMapper.bookEntityToBookTo(bookEntity);
     }
 
-    public void setBookDao(BookDao bookDao) {
-        this.bookDao = bookDao;
-    }
-
-	public void setBookMapper(BookMapper bookMapper) {
-		this.bookMapper = bookMapper;
-	}
-    
 }

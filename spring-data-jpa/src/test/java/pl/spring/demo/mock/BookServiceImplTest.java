@@ -28,9 +28,7 @@ public class BookServiceImplTest {
 	private BookDao bookDao;
 	@Mock
 	private BookMapper bookMapper;
-	@Mock
-	private AuthorsMapper authorsMapper;
-
+	
 	@Before
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);

@@ -4,14 +4,24 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import pl.spring.demo.entity.AuthorEntity;
 import pl.spring.demo.separators.Separators;
 
-@Service
+@Component
 public class AuthorsMapper {
 	
+	/**
+	 * Map string with author separated by comma to list of AuthorEntity.
+	 * Space after and between authors are skipped,
+	 * so for example:
+	 * "firstname lastname, firstname last name",
+	 * it's the same what
+	 * "firstname lastname,        firstname last name".
+	 * @param authors authors(Example firstname lastname, firstname last name)
+	 * @return	list of AuthorEntity
+	 */
 	public List<AuthorEntity> stringToListOfAuthorEntity(String authors) {
 		return Arrays.asList(authors.split(Separators.COMMA))
 				.stream()
@@ -21,6 +31,14 @@ public class AuthorsMapper {
 				}).collect(Collectors.toList());
 	}
 	
+	/**
+	 * Map AuthorEntity to string saved as:
+	 * firstname lastname, firstname last name.
+	 * If is only one author string will be saved as:
+	 * firstname lastname.
+	 * @param authors list of AuthorEntity
+	 * @return	String with authors saved as firstname lastname, firstname last name
+	 */
 	public String listOfAuthorEntityToString(List<AuthorEntity> authors) {
 		return authors
 			.stream()

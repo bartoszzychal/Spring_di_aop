@@ -50,13 +50,5 @@ public class BookDaoAdvisor {
 			book.setId(sequence.nextValue(bookDao.getALL_BOOKS()));
 		}
 	}
-	
-	public void setSequence(Sequence sequence) {
-		this.sequence = sequence;
-	}
-
-	public void setBookDao(BookDao bookDao) {
-		this.bookDao = bookDao;
-	}
 
 }
