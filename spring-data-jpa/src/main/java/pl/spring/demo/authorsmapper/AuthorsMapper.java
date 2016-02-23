@@ -20,7 +20,7 @@ public class AuthorsMapper {
 	 * it's the same what
 	 * "firstname lastname,        firstname last name".
 	 * @param authors authors(Example firstname lastname, firstname last name)
-	 * @return	list of AuthorEntity
+	 * @return	list of AuthorEntity or empty list list if authors doesn't exist.
 	 */
 	public List<AuthorEntity> stringToListOfAuthorEntity(String authors) {
 		return Arrays.asList(authors.split(Separators.COMMA))
@@ -38,6 +38,7 @@ public class AuthorsMapper {
 	 * firstname lastname.
 	 * @param authors list of AuthorEntity
 	 * @return	String with authors saved as firstname lastname, firstname last name
+	 * @throws NoSuchElementException if authors doesn't exist.
 	 */
 	public String listOfAuthorEntityToString(List<AuthorEntity> authors) {
 		return authors

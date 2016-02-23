@@ -15,14 +15,14 @@ public interface BookDao {
 
     /**
      * Return all books, which title start with prefix get like a parameter prefix_title.
-     * <br>
-     * <br>For example:
-     * <br>prefix_title - "Rom"
-     * <br>find books with title start with prefix "Rom":
-     * <br>"Romeo i Julia"
-     * <br>"Rome"
-     * <br>
-     * <br>Ignore the font size.
+     * 
+     * Example:
+     * prefix_title - "Rom"
+     * find books with title start with prefix "Rom":
+     * "Romeo i Julia"
+     * "Rome"
+     * 
+     * Ignore the font size.
      * @param prefix_title prefix to find book
      * @return	list of BookEntity, which title start with prefix
      */
@@ -30,20 +30,20 @@ public interface BookDao {
 
     /**
      * Return all book, which some authors start with prefix get like a parameter prefix_author.
-     * <br>The first name and last name are concat with space separator.
-     * <br>
-     * <br>Example 1:
-     * <br>prefix_author - "Wili"
-     * <br>find books with some author start with "Wili"
-     * <br>"Wiliam Szekspir"
-     * <br>"William Boyd"
+     * The first name and last name are concat with space separator.
      * 
-     * <br>Example 2:
-     * <br>prefix_author - "Wiliam S"
-     * <br>find books with some author start with "Wiliam S"
-     * <br>"Wiliam Szekspir"
-     * <br>
-     * <br>Ignore the font size.
+     * Example 1:
+     * prefix_author - "Wili"
+     * find books with some author start with "Wili"
+     * "Wiliam Szekspir"
+     * "William Boyd"
+     * 
+     * Example 2:
+     * prefix_author - "Wiliam S"
+     * find books with some author start with "Wiliam S"
+     * "Wiliam Szekspir"
+     * 
+     * Ignore the font size.
      * @param prefix_author prefix to find book
      * @return	list of BookEntity, which some author start witj prefix
      */
